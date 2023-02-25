@@ -17,28 +17,35 @@ def movie_info():
 
 def list_movies():
    for movie in movies:
-      print(movie['title'])
+      print_movie(movie)
 
+
+def print_movie(movie):
+   print(f"\nTitle: {movie['title']}")    
+   print(f"Director: {movie['director']}") 
+   print(f"Release year: {movie['year']}")
 
 def find_movie():
-   movie_query = input("Enter the movie title: ")
+   movie_query = input("Enter the movie title you are looking for: ")
    for movie in movies:
       if movie_query == movie['title']:
-         print(f"{movie_query} is in the movie list.  It was directed by {movie['director']}. It was released in {movie['year']}.") 
+         print(f"\n{movie_query} is in the movie list.")
+         print_movie(movie)
+
+
+user_options = {
+  'a': movie_info,
+  'l': list_movies, 
+  'f': find_movie
+}
 
 
 def menu_selector():
   selection = input(MENU_PROMPT)
   while selection != 'q':
-      if selection == "a":
-          # pass
-          movie_info()
-      elif selection == "l":
-          # pass
-          list_movies()
-      elif selection == "f":
-          # pass
-          find_movie()
+      if selection in user_options:
+        selected_function = user_options[selection] 
+        selected_function()
       else:
           print('Unknown command. Please try again.')
 
